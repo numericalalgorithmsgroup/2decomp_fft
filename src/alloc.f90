@@ -5,7 +5,7 @@
 ! decomposition. It also implements a highly scalable distributed
 ! three-dimensional Fast Fourier Transform (FFT).
 !
-! Copyright (C) 2009-2012 Ning Li, the Numerical Algorithms Group (NAG)
+! Copyright (C) 2009-2021 Ning Li, the Numerical Algorithms Group (NAG)
 !
 !=======================================================================
 
