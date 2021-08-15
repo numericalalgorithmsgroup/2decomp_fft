@@ -3,11 +3,7 @@
 
 Version 1.5
 
-Copyright (C) 2009-2012 Ning Li
+Copyright (C) 2009-2021 Ning Li
 The Numerical Algorithms Group (NAG)
 
 http://www.2decomp.org
-
-2DECOMP&FFT is part of the Open Petascale Libraries. 
-
-http://www.openpetascale.org/2decomp
