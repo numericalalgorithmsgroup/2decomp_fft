@@ -17,7 +17,7 @@ halo_test:
 io_test:
 	cd io_test; $(MAKE) $@
 
-# test all the examples (individual Makefiels should take care of updating)
+# test all the examples (individual Makefiles should take care of updating)
 basic_test:
 	cd test2d; $(MAKE) $@
 	cd fft_test_c2c; $(MAKE) $@
