@@ -83,7 +83,7 @@ contains
     
     COMPLEX(mytype) :: UIN(B,C,A),UOUT(B,A,C),DELTA,OMEGA,SUM
     
-    ANGLE = 6.28318530717958_mytype / REAL( A * C, kind=mytype )
+    ANGLE = 8.D0*DATAN(1.D0) / REAL( A * C, kind=mytype )
     OMEGA = CMPLX( 1.0, 0.0, kind=mytype )
     
     IF( ISIGN .EQ. 1 ) THEN
