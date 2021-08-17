@@ -110,15 +110,15 @@ module decomp_2d_fft
     
     implicit none
 
-    complex*16, dimension(:,:,:), intent(IN) :: c1
-    complex*16, dimension(:,:,:), intent(OUT) :: c2
+    complex(mytype), dimension(:,:,:), intent(IN) :: c1
+    complex(mytype), dimension(:,:,:), intent(OUT) :: c2
     integer, intent(IN) :: isign, type
     
     integer :: Nx, Ny, Nz, res, i,j,k
-    complex*16, allocatable, dimension(:,:,:) :: wk1, wk2
-    complex*16, parameter :: size1 = dcmplx(0.0,0.0)
+    complex(mytype), allocatable, dimension(:,:,:) :: wk1, wk2
+    complex(mytype), parameter :: size1 = dcmplx(0.0,0.0)
     type(C_PTR) :: cptr_c1d, cptr_c2d
-    complex*16, dimension(:,:,:), pointer :: c1d, c2d
+    complex(mytype), dimension(:,:,:), pointer :: c1d, c2d
 
     Nx = size(c1,1)
     Ny = size(c1,2)
@@ -200,15 +200,15 @@ module decomp_2d_fft
     
     implicit none
     
-    real*8, dimension(:,:,:), intent(IN) :: r 
-    complex*16, dimension(:,:,:), intent(OUT) :: c
+    real(mytype), dimension(:,:,:), intent(IN) :: r 
+    complex(mytype), dimension(:,:,:), intent(OUT) :: c
     
     integer :: Nx, Ny, Nz, res
-    complex*16, parameter :: size1 = dcmplx(0.0,0.0)
-    real*8, parameter :: size2 = dble(0.0)
+    complex(mytype), parameter :: size1 = dcmplx(0.0,0.0)
+    real(mytype), parameter :: size2 = dble(0.0)
     type(C_PTR) :: cptr_cd, cptr_rd
-    complex*16, dimension(:,:,:), pointer :: cd
-    real*8, dimension(:,:,:), pointer :: rd
+    complex(mytype), dimension(:,:,:), pointer :: cd
+    real(mytype), dimension(:,:,:), pointer :: rd
     
     Nx = size(r,1)
     Ny = size(r,2)
@@ -278,15 +278,15 @@ module decomp_2d_fft
     
     implicit none
 
-    complex*16, dimension(:,:,:), intent(IN) :: c
-    real*8, dimension(:,:,:), intent(OUT) :: r
+    complex(mytype), dimension(:,:,:), intent(IN) :: c
+    real(mytype), dimension(:,:,:), intent(OUT) :: r
 
     integer :: Nx, Ny, Nz, res
-    complex*16, parameter :: size1 = dcmplx(0.0,0.0)
-    real*8, parameter :: size2 = dble(0.0)
+    complex(mytype), parameter :: size1 = dcmplx(0.0,0.0)
+    real(mytype), parameter :: size2 = dble(0.0)
     type(C_PTR) :: cptr_cd, cptr_rd
-    complex*16, dimension(:,:,:), pointer :: cd
-    real*8, dimension(:,:,:), pointer :: rd
+    complex(mytype), dimension(:,:,:), pointer :: cd
+    real(mytype), dimension(:,:,:), pointer :: rd
     
     Nx = size(r,1)
     Ny = size(r,2)
