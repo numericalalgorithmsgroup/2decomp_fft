@@ -5,7 +5,7 @@
 ! decomposition. It also implements a highly scalable distributed
 ! three-dimensional Fast Fourier Transform (FFT).
 !
-! Copyright (C) 2009-2011 Ning Li, the Numerical Algorithms Group (NAG)
+! Copyright (C) 2009-2021 Ning Li, the Numerical Algorithms Group (NAG)
 !
 !=======================================================================
 
@@ -125,17 +125,17 @@ module decomp_2d_fft
     Nz = size(c1,3)
     
     if (type == 1) then
-       res = cudaMallocHost(cptr_c1d, Nx*Ny*Nz*sizeof(size1))
+       res = cudaMallocHost(cptr_c1d, Nx*Ny*Nz*c_sizeof(size1))
        call c_f_pointer(cptr_c1d, c1d, [Nx,Ny,Nz])
-       res = cudaMallocHost(cptr_c2d, Nx*Ny*Nz*sizeof(size1))
+       res = cudaMallocHost(cptr_c2d, Nx*Ny*Nz*c_sizeof(size1))
        call c_f_pointer(cptr_c2d, c2d, [Nx,Ny,Nz])
        c1d = c1
        call fft_1m_c2c(Nx, Ny*Nz, c1d, c2d, sign)
        c2 = c2d
     else if (type == 2) then
-       res = cudaMallocHost(cptr_c1d, Nx*Ny*Nz*sizeof(size1))
+       res = cudaMallocHost(cptr_c1d, Nx*Ny*Nz*c_sizeof(size1))
        call c_f_pointer(cptr_c1d, c1d, [Ny,Nx,Nz])
-       res = cudaMallocHost(cptr_c2d, Nx*Ny*Nz*sizeof(size1))
+       res = cudaMallocHost(cptr_c2d, Nx*Ny*Nz*c_sizeof(size1))
        call c_f_pointer(cptr_c2d, c2d, [Ny,Nx,Nz])
        allocate(wk1(Ny, Nx, Nz))
        do k=1,Nz                                                               
@@ -157,9 +157,9 @@ module decomp_2d_fft
        end do
        deallocate(wk1)
     else if (type == 3) then
-       res = cudaMallocHost(cptr_c1d, Nx*Ny*Nz*sizeof(size1))
+       res = cudaMallocHost(cptr_c1d, Nx*Ny*Nz*c_sizeof(size1))
        call c_f_pointer(cptr_c1d, c1d, [Nz,Nx,Ny])
-       res = cudaMallocHost(cptr_c2d, Nx*Ny*Nz*sizeof(size1))
+       res = cudaMallocHost(cptr_c2d, Nx*Ny*Nz*c_sizeof(size1))
        call c_f_pointer(cptr_c2d, c2d, [Nz,Nx,Ny])
        allocate(wk2(Nz, Nx, Ny))
        do k=1,Nz
@@ -214,9 +214,9 @@ module decomp_2d_fft
     Ny = size(r,2)
     Nz = size(r,3)
     
-    res = cudaMallocHost(cptr_cd,(Nx/2+1)*Ny*Nz*sizeof(size1))
+    res = cudaMallocHost(cptr_cd,(Nx/2+1)*Ny*Nz*c_sizeof(size1))
     call c_f_pointer(cptr_cd,cd, [Nx/2+1,Ny,Nz])
-    res = cudaMallocHost(cptr_rd, Nx*Ny*Nz*sizeof(size2))
+    res = cudaMallocHost(cptr_rd, Nx*Ny*Nz*c_sizeof(size2))
     call c_f_pointer(cptr_rd,rd, [Nx,Ny,Nz])
     rd = r
     call fft_1m_r2c(Nx, Ny*Nz, rd, cd)
@@ -292,9 +292,9 @@ module decomp_2d_fft
     Ny = size(r,2)
     Nz = size(r,3)
 
-    res = cudaMallocHost(cptr_cd,(Nx/2+1)*Ny*Nz*sizeof(size1))
+    res = cudaMallocHost(cptr_cd,(Nx/2+1)*Ny*Nz*c_sizeof(size1))
     call c_f_pointer(cptr_cd,cd, [Nx/2+1,Ny,Nz])
-    res = cudaMallocHost(cptr_rd, Nx*Ny*Nz*sizeof(size2))
+    res = cudaMallocHost(cptr_rd, Nx*Ny*Nz*c_sizeof(size2))
     call c_f_pointer(cptr_rd,rd, [Nx,Ny,Nz])
     cd = c
     call fft_1m_c2r(Nx, Ny*Nz, cd, rd)
