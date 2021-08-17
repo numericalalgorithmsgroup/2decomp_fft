@@ -103,7 +103,7 @@ module decomp_2d_fft
   !   not necessary and the cost can be absorbed by the communication
   !   routines packing/unpacking the MPI ALLTOALLV buffers
   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  subroutine c2c_1m(c1, c2, sign, type)
+  subroutine c2c_1m(c1, c2, isign, type)
     
     use iso_c_binding
     use cuda_alloc
@@ -112,7 +112,7 @@ module decomp_2d_fft
 
     complex*16, dimension(:,:,:), intent(IN) :: c1
     complex*16, dimension(:,:,:), intent(OUT) :: c2
-    integer, intent(IN) :: sign, type
+    integer, intent(IN) :: isign, type
     
     integer :: Nx, Ny, Nz, res, i,j,k
     complex*16, allocatable, dimension(:,:,:) :: wk1, wk2
@@ -130,7 +130,7 @@ module decomp_2d_fft
        res = cudaMallocHost(cptr_c2d, Nx*Ny*Nz*c_sizeof(size1))
        call c_f_pointer(cptr_c2d, c2d, [Nx,Ny,Nz])
        c1d = c1
-       call fft_1m_c2c(Nx, Ny*Nz, c1d, c2d, sign)
+       call fft_1m_c2c(Nx, Ny*Nz, c1d, c2d, isign)
        c2 = c2d
     else if (type == 2) then
        res = cudaMallocHost(cptr_c1d, Nx*Ny*Nz*c_sizeof(size1))
@@ -146,7 +146,7 @@ module decomp_2d_fft
           end do
        end do
        c1d = wk1
-       call fft_1m_c2c(Ny, Nx*Nz, c1d, c2d, sign)
+       call fft_1m_c2c(Ny, Nx*Nz, c1d, c2d, isign)
        wk1 = c2d
        do k=1,Nz
           do j=1,Ny
@@ -170,7 +170,7 @@ module decomp_2d_fft
           end do
        end do
        c1d = wk2
-       call fft_1m_c2c(Nz, Nx*Ny, c1d, c2d, sign)
+       call fft_1m_c2c(Nz, Nx*Ny, c1d, c2d, isign)
        wk2 = c2d
        do k=1,Nz
           do j=1,Ny
