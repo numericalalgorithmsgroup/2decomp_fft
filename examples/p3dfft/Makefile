@@ -1,6 +1,6 @@
 include ../../src/Makefile.inc
 
-P3DFFT_HOME=$(HOME)/software/build/p3dfft-2.5.1-dimsc
+P3DFFT_HOME=$(HOME)/software/build/p3dfft-2.7.9-dimsc
 FFTW3_HOME=$(HOME)/software/build/fftw-3.3
 
 INCLUDE = -I../../include -I$(P3DFFT_HOME)/include

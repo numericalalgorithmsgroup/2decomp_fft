@@ -162,7 +162,7 @@ program p3dfft_test
      print *,'P3DFFT result'
   endif
   
-  call p3dfft_setup(ndims,nx,ny,nz,.true.)
+  call p3dfft_setup(ndims,nx,ny,nz,MPI_COMM_WORLD,nx,ny,nz,.true.)
   call p3dfft_get_dims(istart,iend,isize,1)
   call p3dfft_get_dims(fstart,fend,fsize,2)
   
@@ -208,7 +208,7 @@ program p3dfft_test
               end do
            end do
         end do
-        call MPI_Reduce(cdiff,ccdiff,1,mpireal,MPI_SUM,0, &
+        call MPI_Reduce(cdiff,ccdiff,1,real_type,MPI_SUM,0, &
              MPI_COMM_WORLD,ierr)
         ccdiff = sqrt(ccdiff/real(nx/2+1,wp)/real(ny,wp)/real(nz,wp))
         if (proc_id==0) then
@@ -247,7 +247,7 @@ program p3dfft_test
         end do
      end do
   end do
-  call MPI_Reduce(cdiff,ccdiff,1,mpireal,MPI_MAX,0, &
+  call MPI_Reduce(cdiff,ccdiff,1,real_type,MPI_MAX,0, &
        MPI_COMM_WORLD,ierr)
   if (proc_id == 0) then
      write(*,*) 'after backward transform'
@@ -263,7 +263,7 @@ program p3dfft_test
         end do
      end do
   end do
-  call MPI_Reduce(cdiff,ccdiff,1,mpireal,MPI_SUM,0, &
+  call MPI_Reduce(cdiff,ccdiff,1,real_type,MPI_SUM,0, &
        MPI_COMM_WORLD,ierr)
   ccdiff = sqrt(ccdiff/real(nx,wp)/real(ny,wp)/real(nz,wp))
   if (proc_id == 0) then
