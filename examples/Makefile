@@ -1,7 +1,7 @@
-.PHONY: test2d fft_test_c2c fft_test_r2c timing halo_test io_test non_blocking
+.PHONY: test2d fft_test_c2c fft_test_r2c timing halo_test io_test
 
 # Just build the examples
-examples: test2d fft_test_c2c fft_test_r2c timing halo_test io_test non_blocking
+examples: test2d fft_test_c2c fft_test_r2c timing halo_test io_test
 	@echo "Built the examples"
 
 test2d:
@@ -16,8 +16,6 @@ halo_test:
 	cd halo_test; $(MAKE) $@
 io_test:
 	cd io_test; $(MAKE) $@
-non_blocking:
-	cd non_blocking; $(MAKE) all
 
 # test all the examples (individual Makefiles should take care of updating)
 basic_test:
@@ -27,7 +25,6 @@ basic_test:
 	cd timing; $(MAKE) $@
 	cd halo_test; $(MAKE) $@
 	cd io_test; $(MAKE) $@
-	cd non_blocking; $(MAKE) $@
 
 clean:
 	cd test2d; $(MAKE) $@
@@ -36,4 +33,3 @@ clean:
 	cd timing; $(MAKE) $@
 	cd halo_test; $(MAKE) $@
 	cd io_test; $(MAKE) $@
-	cd non_blocking; $(MAKE) $@
