@@ -9,7 +9,6 @@
 #   -DEVEN          - for evenly distributed data, use ALLTOALL
 #   -DSHM	        - enable system V shared-memory implementation
 #   -DOVERWRITE     - allow FFT input to be overwritten (save memory)
-#   -DOCC           - use API for overlap communication and computation
 #   -DGLOBAL_ARRAYS - turn on support for Global Arrays toolkit
 #   -DT3PIO         - turn on LUSTRE IO optimisation code using T3PIO
 OPTIONS=-DDOUBLE_PREC
@@ -23,7 +22,7 @@ OPTIONS=-DDOUBLE_PREC
 #   fftw3_f03  - FFTW 3.3-beta1 or later (with Fortran 2003 interface)
 #   generic    - A general FFT algorithm (no 3rd-party library needed)
 #   mkl        - Intel Math Kernel Library
-FFT=cufft
+FFT=fftw3
 
 # Platform-dependent information - compiler, external library etc
 #================================================================

@@ -8,7 +8,6 @@
 #   -DDOUBLE_PREC - use double-precision (default single)
 #   -DEVEN        - for evenly distributed data, use ALLTOALL
 #   -DOVERWRITE   - allow FFT input to be overwritten (save memory)
-#   -DOCC         - use API for overlap communication and computation
 OPTIONS=-DDOUBLE_PREC -DOVERWRITE
 
 # Choose one FFT engine, available options are:
