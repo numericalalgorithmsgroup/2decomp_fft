@@ -9,7 +9,6 @@
 #   -DEVEN          - for evenly distributed data, use ALLTOALL
 #   -DSHM	        - enable system V shared-memory implementation
 #   -DOVERWRITE     - allow FFT input to be overwritten (save memory)
-#   -DGLOBAL_ARRAYS - turn on support for Global Arrays toolkit
 #   -DT3PIO         - turn on LUSTRE IO optimisation code using T3PIO
 OPTIONS=-DDOUBLE_PREC
 
@@ -39,11 +38,6 @@ else ifeq ($(FFT),fftw3_f03)
   INC=-I$(FFTW_PATH)/include
 else
   INC=
-endif
-
-ifneq (,$(findstring DGLOBAL_ARRAYS,$(OPTIONS)))
-  GA_PATH=/opt/ga-5-0-2
-  INC+= -I$(GA_PATH)/include
 endif
 
 ifneq (,$(findstring DT3PIO,$(OPTIONS)))

@@ -17,29 +17,16 @@ module decomp_2d
 
   implicit none
 
-#ifdef GLOBAL_ARRAYS
-#include "mafdecls.fh"
-#include "global.fh"
-#endif
-
   private        ! Make everything private unless declared public
 
 #ifdef DOUBLE_PREC
   integer, parameter, public :: mytype = KIND(0.0D0)
   integer, parameter, public :: real_type = MPI_DOUBLE_PRECISION
   integer, parameter, public :: complex_type = MPI_DOUBLE_COMPLEX
-#ifdef GLOBAL_ARRAYS
-  integer, parameter, public :: ga_real_type = MT_F_DBL
-  integer, parameter, public :: ga_complex_type = MT_F_DCPL
-#endif
 #else
   integer, parameter, public :: mytype = KIND(0.0)
   integer, parameter, public :: real_type = MPI_REAL
   integer, parameter, public :: complex_type = MPI_COMPLEX
-#ifdef GLOBAL_ARRAYS
-  integer, parameter, public :: ga_real_type = MT_F_REAL
-  integer, parameter, public :: ga_complex_type = MT_F_SCPL
-#endif
 #endif
 
   integer, save, public :: mytype_bytes
@@ -156,9 +143,6 @@ module decomp_2d
        transpose_z_to_y_wait, transpose_y_to_x_wait, &
        transpose_test, &
        decomp_info_init, decomp_info_finalize, partition, &
-#ifdef GLOBAL_ARRAYS
-       get_global_array, &
-#endif
        alloc_x, alloc_y, alloc_z, &
        update_halo, decomp_2d_abort, &
        get_decomp_info
@@ -1082,120 +1066,6 @@ contains
     
     RETURN
   END SUBROUTINE MAPSET_SMPSHM
-
-#endif
-
-
-#ifdef GLOBAL_ARRAYS
-
-  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  ! Create global arrays that mapped to pencil decompisitions
-  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  subroutine get_global_array(ga, ipencil, data_type, opt_decomp)
-    
-    implicit none
-
-    integer, intent(OUT) :: ga
-    integer, intent(IN) :: ipencil ! 1=X-pencil; 2=Y-pencil; 3=Z-pencil
-    integer, intent(IN) :: data_type
-    TYPE(DECOMP_INFO), intent(IN), optional :: opt_decomp
-
-    TYPE(DECOMP_INFO) :: decomp
-    integer, dimension(3) :: nblock
-    integer, allocatable, dimension(:) :: map
-    integer :: offset, i, errorcode
-    logical :: success
-
-    if (present(opt_decomp)) then
-       decomp = opt_decomp
-    else
-       decomp = decomp_main
-    end if
-
-    ga = ga_create_handle()
-    call ga_set_data(ga, 3, &
-         (/decomp%xsz(1),decomp%ysz(2),decomp%zsz(3)/), data_type)
-    allocate(map(1+dims(1)+dims(2)))
-
-    ! generate the GA irreg distribution parameters using 
-    ! 2DECOMP's decomposition information
-    if (ipencil==1) then  ! X-pencil
-       nblock(1) = 1
-       nblock(2) = dims(1)
-       nblock(3) = dims(2)
-       map(1) = 1
-       offset = nblock(1)+1
-       do i=0, dims(1)-1
-          if (i==0) then
-             map(offset+i) = 1
-          else
-             map(offset+i) = map(offset+i-1) + decomp%y1dist(i-1)
-          end if
-       end do
-       offset = nblock(1) + nblock(2) + 1
-       do i=0, dims(2)-1
-          if (i==0) then
-             map(offset+i) = 1
-          else
-             map(offset+i) = map(offset+i-1) + decomp%z2dist(i-1)
-          end if
-       end do
-    else if (ipencil==2) then  ! Y-pencil
-       nblock(1) = dims(1)
-       nblock(2) = 1
-       nblock(3) = dims(2)
-       offset = 1
-       do i=0, dims(1)-1
-          if (i==0) then
-             map(offset+i) = 1
-          else
-             map(offset+i) = map(offset+i-1) + decomp%x1dist(i-1)
-          end if
-       end do
-       map(nblock(1)+1) = 1
-       offset = nblock(1) + nblock(2) + 1
-       do i=0, dims(2)-1
-          if (i==0) then
-             map(offset+i) = 1
-          else
-             map(offset+i) = map(offset+i-1) + decomp%z2dist(i-1)
-          end if
-       end do
-    else if (ipencil==3) then  ! Z-pencil
-       nblock(1) = dims(1)
-       nblock(2) = dims(2)
-       nblock(3) = 1
-       offset = 1
-       do i=0, dims(1)-1
-          if (i==0) then
-             map(offset+i) = 1
-          else
-             map(offset+i) = map(offset+i-1) + decomp%x1dist(i-1)
-          end if
-       end do
-       offset = nblock(1)+1
-       do i=0, dims(2)-1
-          if (i==0) then
-             map(offset+i) = 1
-          else
-             map(offset+i) = map(offset+i-1) + decomp%y2dist(i-1)
-          end if
-       end do
-       map(nblock(1)+nblock(2)+1) = 1
-    end if
-
-    call ga_set_irreg_distr(ga, map, nblock)
-    success = ga_allocate(ga)
-    if (.not.success) then
-       errorcode = 7
-       call decomp_2d_abort(errorcode, &
-            'Failed to create global arrays')
-    end if
-
-    deallocate(map)
-
-    return
-  end subroutine get_global_array
 
 #endif
 
