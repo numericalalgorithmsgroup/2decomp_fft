@@ -4,10 +4,10 @@ P3DFFT is probably the most well-known open-source distributed FFT library. The 
 
 P3DFFT was actually ported onto HECToR (my development system) at the early stage of the 2DECOMP&FFT project. Fig. 1 shows its good scaling on the old hardware (back in early 2009, the system was a Cray XT4 using dual-core AMD Opteron processors and Cray SeaStar interconnect).
 
-<figure>
-  <img src="images/p3dfft_hector_phase1.png" style="display:block;float:none;margin-left:auto;margin-right:auto;">
-  <figcaption  style="text-align: center;">Figure 1. P3DFFT scaling on Cray XT4 HECToR..</figcaption>
-</figure>
+<p align="center">
+  <img src="images/p3dfft_hector_phase1.png"><br>
+  <span style="font-size:smaller;">Figure 1. P3DFFT scaling on Cray XT4 HECToR.</span>
+</p>
 
 What motivated the author to develop a new and somewhat competing library were the following:
 - P3DFFT is an FFT-only package. It is not designed as a general-purpose 2D decomposition library and its communication routines are not designed to be user callable. 2DECOMP&FFT provides a general-purpose decomposition library to support the building of a variety of applications (the applications do not necessarily need to use FFT).
@@ -18,10 +18,10 @@ What motivated the author to develop a new and somewhat competing library were t
 
 The parallel performance of 2DECOMP&FFT and P3DFFT has been studied in great detail in a [MSc thesis by E. Brachos at University of Edinburgh](https://static.epcc.ed.ac.uk/dissertations/hpc-msc/2010-2011/EvangelosBrachos.pdf). Fig. 2 shows a set of benchmark on r2c/c2r transforms of size 256^3. The MPI interface of FFTW 3.3 was also examined, although it can only run in 1D slab decomposition mode.
 
-<figure>
-  <img src="images/Brachos.png" style="display:block;float:none;margin-left:auto;margin-right:auto;">
-  <figcaption  style="text-align: center;">Figure 2. Speedup of 2DECOMP&FFT, P3DFFT and FFTW 3.3's MPI interface.</figcaption>
-</figure>
+<p align="center">
+  <img src="images/Brachos.png"><br>
+  <span style="font-size:smaller;">Figure 2. Speedup of 2DECOMP&FFT, P3DFFT and FFTW 3.3's MPI interface.</span>
+</p>
 
 The performance difference between 2DECOMP&FFT and P3DFFT is often shown to be marginal, although the best 2D processor grid to achieve the optimal performance can be very different due to the different internal architecture of the two libraries.
 

@@ -80,10 +80,10 @@ This set of benchmarks was performed in March 2010 on the HECToR phase 2a system
 
 Large-scale parallel benchmarks of the FFT interface were performed, using problem size up to 8192^3. The results presented are the time spent to compute a pair of forward and backward transforms on random signals. Both c2c and r2c/c2r transforms were tested. The underlying FFT engine is the ACML FFT (version 4.3). In all cases, the original signals were recovered to machine accuracy after the backward transforms - a good validation for the library. Up to 16384 cores were used on HECToR and each case was repeated 3 times and the fastest results were recorded. On Jaguar, a few very large tests were arranged using up to 131072 cores. Note that the runtime performance does vary a lot for such communication intensive applications, particularly on busy production systems.
 
-<figure>
-  <img src="images/fft_hector_2a.png" style="display:block;float:none;margin-left:auto;margin-right:auto;">
-  <figcaption  style="text-align: center;">Scaling of the FFT interface on HECToR phase 2a and Jaguar.</figcaption>
-</figure>
+<p align="center">
+  <img src="images/fft_hector_2a.png"><br>
+  <span style="font-size:smaller;">Scaling of the FFT interface on HECToR phase 2a and Jaguar.</span>
+</p>
 
 It can be seen that the FFT interface scales almost perfectly on HECToR for all the tests. As expected, r2c/c2r transforms are twice as fast as c2c transforms. On Jaguar, the scaling is less good for larger core counts but the paralle efficiency is still at a respectable 81% for the largest test. For a particular configuration - 4096^3 mesh on 16384 cores - the time spent on Jaguar is almost twice of that on HECToR. This is not unexpected. Jaguar had two 6-core chips. In order to achieve better load balance, the problem sizes need to have a factor of 6 which was not the case in these tests. Also the problem size 8192^3, while quite large for real-world applications, is indeed too small when distributing over 10^5 cores.
 
@@ -99,6 +99,7 @@ The largest tests done before was on problem size 8192^3, but on either much lar
 
 The library code had to be optimised first to minimise the memory footprint. The ACML implementation of the library was optimised by using inplace transforms wherever possible. A software option was also introduced to allow the FFT input to be overwritten.<a href="#note2" id="note2ref"><sup>2</sup></a> In order to increase the problem size further, the 24-core nodes can be under-populated - by using only 16 cores per node, each core will have access to about 50% more memory.
 
+<p align="center">
 <table>
 	<tr style="background-color:#09548B; color:#ffffff;">
 	  <td style="text-align:center;">Problem Size</td>
@@ -131,6 +132,7 @@ The library code had to be optimised first to minimise the memory footprint. The
 	  <td style="text-align:center;">82.76</td>
 	</tr>
 </table>
+</p>
 
 The table summarises all the test cases done using 16384 cores. For under-populated cases, 24576 cores (1024 nodes, the largest possible HECToR job) had to be reserved. The figures reported are number of seconds to perform a pair (forward+backward) of single-precision complex-to-complex FFTs. As shown, the largest problem size achieved is 12288\*8192\*8192. The scaling of the library is very good - each time the problem size is doubled, the time required is only slightly more than doubled. Also shown is that when running in under-populated mode, the code is consistently 20% faster.
 
