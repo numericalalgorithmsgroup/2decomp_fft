@@ -27,7 +27,7 @@ Here is a list of 2DECOMP&FFT's main features:
 
 This software package was originally derived from several projects funded under the HECToR Distributed Computational Science and Engineering (dCSE) programme operated by NAG Ltd. HECToR - a UK Research Councils' high end computing service - served as the UK's national supercomputer for open science between 2008 and 2014.
 
-The active development of this library completed in 2012. It has been in production use in many research applications since then. The code appears to be in a very good quality with almost no major bugs reported.
+The active development of this library completed in 2012. It has been in production use in many research applications since then. The code quality appears to be very good with almost no major bugs reported over the years. Its performance remains very competitive as reported by a [recent study](https://www.icl.utk.edu/files/publications/2021/icl-utk-1490-2021.pdf). 
 
 Since August 2021, this project is hosted in NAG's official GitHub account to facilitate future development and maintenance.
 
