@@ -76,7 +76,7 @@ It can be seen that due to the set-up overhead and communication cost, the absol
 
 #### 2DECOMP&FFT Scaling on Phase 2a System
 
-This set of benchmarks was performed in March 2010 on the HECToR phase 2a system. A small number of runs were also performed on Jaguar[^1] - the world No. 1 system at that time - for reference.
+This set of benchmarks was performed in March 2010 on the HECToR phase 2a system. A small number of runs were also performed on Jaguar<a href="#note1" id="note1ref"><sup>1</sup></a> - the world No. 1 system at that time - for reference.
 
 Large-scale parallel benchmarks of the FFT interface were performed, using problem size up to 8192^3. The results presented are the time spent to compute a pair of forward and backward transforms on random signals. Both c2c and r2c/c2r transforms were tested. The underlying FFT engine is the ACML FFT (version 4.3). In all cases, the original signals were recovered to machine accuracy after the backward transforms - a good validation for the library. Up to 16384 cores were used on HECToR and each case was repeated 3 times and the fastest results were recorded. On Jaguar, a few very large tests were arranged using up to 131072 cores. Note that the runtime performance does vary a lot for such communication intensive applications, particularly on busy production systems.
 
@@ -97,7 +97,7 @@ In April 2011, one of my collaborators in China (who at that time was lucky enou
 
 The largest tests done before was on problem size 8192^3, but on either much larger systems (such as Jaguar) or on systems with lots of memory. Memory per core on HECToR has decreased from the initial 3 GB to only 1.33 GB with the arrival of 24-core nodes, making it much more difficult to run larger tests.
 
-The library code had to be optimised first to minimise the memory footprint. The ACML implementation of the library was optimised by using inplace transforms wherever possible. A software option was also introduced to allow the FFT input to be overwritten.[^2] In order to increase the problem size further, the 24-core nodes can be under-populated - by using only 16 cores per node, each core will have access to about 50% more memory.
+The library code had to be optimised first to minimise the memory footprint. The ACML implementation of the library was optimised by using inplace transforms wherever possible. A software option was also introduced to allow the FFT input to be overwritten.<a href="#note2" id="note2ref"><sup>2</sup></a> In order to increase the problem size further, the 24-core nodes can be under-populated - by using only 16 cores per node, each core will have access to about 50% more memory.
 
 <table>
 	<tr style="background-color:#09548B; color:#ffffff;">
@@ -134,5 +134,5 @@ The library code had to be optimised first to minimise the memory footprint. The
 
 The table summarises all the test cases done using 16384 cores. For under-populated cases, 24576 cores (1024 nodes, the largest possible HECToR job) had to be reserved. The figures reported are number of seconds to perform a pair (forward+backward) of single-precision complex-to-complex FFTs. As shown, the largest problem size achieved is 12288\*8192\*8192. The scaling of the library is very good - each time the problem size is doubled, the time required is only slightly more than doubled. Also shown is that when running in under-populated mode, the code is consistently 20% faster.
 
-[^1]: This research used resources of the National Center for Computational Sciences at Oak Ridge National Laboratory, which is supported by the Office of Science of the Department of Energy under Contract DE-AC05-00OR22725.
-[^2]: 2DECOMP&FFT's FFT interface itself does not support inplace transforms at the moment - the input and output must point to distinct memory addresses. But the sub-steps (1D FFTs) can be implemented using inplace transforms provided by the underlying FFT engines. Allowing the input to be overwritten makes it possible to reuse the memory as scratch space.
+<a id="note1" href="#note1ref"><sup>1</sup></a>This research used resources of the National Center for Computational Sciences at Oak Ridge National Laboratory, which is supported by the Office of Science of the Department of Energy under Contract DE-AC05-00OR22725.
+<a id="note2" href="#note2ref"><sup>2</sup></a>2DECOMP&FFT's FFT interface itself does not support inplace transforms at the moment - the input and output must point to distinct memory addresses. But the sub-steps (1D FFTs) can be implemented using inplace transforms provided by the underlying FFT engines. Allowing the input to be overwritten makes it possible to reuse the memory as scratch space.
