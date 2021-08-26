@@ -10,7 +10,7 @@
 #   -DSHM	        - enable system V shared-memory implementation
 #   -DOVERWRITE     - allow FFT input to be overwritten (save memory)
 #   -DT3PIO         - turn on LUSTRE IO optimisation code using T3PIO
-OPTIONS=-DDOUBLE_PREC
+OPTIONS=
 
 # Choose one FFT engine, available options are:
 #   acml       - AMD Core Math Library
@@ -21,17 +21,17 @@ OPTIONS=-DDOUBLE_PREC
 #   fftw3_f03  - FFTW 3.3-beta1 or later (with Fortran 2003 interface)
 #   generic    - A general FFT algorithm (no 3rd-party library needed)
 #   mkl        - Intel Math Kernel Library
-FFT=fftw3
+FFT=generic
 
 # Platform-dependent information - compiler, external library etc
 #================================================================
 
 # Inlcude path if necessary (change to your actual paths)
-MKL_PATH=/opt/intel/mkl
+MKL_ROOT=/opt/intel/oneapi/mkl/latest
 FFTW_PATH=$(HOME)/software/build/fftw-3.3.9
 CUDA_PATH=/usr/local/cuda-11.1
 ifeq ($(FFT),mkl)
-  INC=-I$(MKL_PATH)/include
+  INC=-I$(MKL_ROOT)/include
   # Fortran compiler used to compile MKL mod files
   IFORT=gfortran
 else ifeq ($(FFT),fftw3)
@@ -76,16 +76,16 @@ LIB_FFTW3=-L$(FFTW_PATH)/lib -lfftw3f -lfftw3
 # For ACML
 # This assumes that 32-bit ACML installed at /opt/. Adjust properly.
 # It helps to create a symbolic link such as 'acml -> acml4.4.0'
-# and update the symbolic link when future ACML version is installed. 
+# and update the symbolic link when future ACML version is installed.
 LIB_ACML=/opt/acml/gfortran32/lib/libacml.a -lrt
 
-# For FFTPACK5 
+# For FFTPACK5
 FFTPACK5_PATH=$(HOME)/software/fftpack5
 LIB_FFTPACK5=$(FFTPACK5_PATH)/libfftpack5.a
 
 # For Intel MKL
-MKL_LIB_PATH= $(MKL_PATH)/lib/ia32
-LIB_MKL=-Wl,--start-group $(MKL_LIB_PATH)/libmkl_gf.a $(MKL_LIB_PATH)/libmkl_sequential.a $(MKL_LIB_PATH)/libmkl_core.a -Wl,--end-group -lpthread
+MKL_LIB_PATH= $(MKL_ROOT)/lib/intel64
+LIB_MKL=-Wl,--start-group $(MKL_LIB_PATH)/libmkl_gf_lp64.a $(MKL_LIB_PATH)/libmkl_sequential.a $(MKL_LIB_PATH)/libmkl_core.a -Wl,--end-group -lpthread -lm -ldl
 
 # For FFTE
 FFTE_PATH=$(HOME)/software/ffte-4.1

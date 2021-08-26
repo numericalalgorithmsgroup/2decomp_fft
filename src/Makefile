@@ -52,7 +52,7 @@ FreeIPC_c.o: FreeIPC_c.c
 .PHONY: mkl_mod
 mkl_mod:
 	echo Building Intel MKL mod files...
-	$(IFORT) -c $(MKL_PATH)/include/mkl_dfti.f90
+	$(IFORT) -c $(MKL_ROOT)/include/mkl_dfti.f90
 
 .PHONY: examples
 examples: lib
