@@ -24,7 +24,6 @@ A 2D pencil decomposition (also known as a 'drawer' or 'block' decomposition) is
   <span style="font-size:smaller;">Figure 2: 2D domain decomposition example using a 4*3 processor grid: (a) X-pencil; (b) Y-pencil; (c) Z-pencil.</span>
 </p>
 
-An interactive view of the 2D pencil decomposition canbe found from this [web application](http://www.2decomp.org/decomp_map.php).
 
 Again MPI_ALLTOALL(V) can be used to realise the transpositions. However it is significantly more complex than the 1D case. There are two separate communicator groups. For a P<sub>row</sub>*P<sub>col</sub> processor grid: P<sub>row</sub> groups of P<sub>col</sub> processors need to exchange data among themselves for (a) <=> (b) ; P<sub>col</sub> groups of P<sub>row</sub> processors need to exchange data among themselves for (b) <=> (c). For example, the red, green and blue processes in state (b) and (c) occupy exactly the same physical domain.
 
