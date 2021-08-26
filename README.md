@@ -8,7 +8,7 @@
 - Software
   - [Download](doc/download.md)
   - [Installation](doc/installation.md)
-- [Domain decomposition strategy](doc/decomposition.md)
+- [Domain decomposition strategies](doc/decomposition.md)
 - [Fast Fourier Transform (FFT) review](doc/fft.md)
 - APIs
   - [2D pencil decomposition APIs](doc/api_decomposition.md)
