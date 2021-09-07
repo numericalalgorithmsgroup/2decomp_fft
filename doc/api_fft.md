@@ -69,4 +69,4 @@ To obtain first-hand experience on the FFT interface, users are advised to exami
 
 <hr size="1">
 
-<a id="note1" href="#note1ref"><sup>1</sup></a>The storage is for Fortran. In C/C++, the last dimension has to be cut in half due to different memory pattern. For Z-pencil input, the complex output is of size nx*ny*(nz/2+1) instead. Also note that the integer division is rounded down.
+<a id="note1" href="#note1ref"><sup>1</sup></a>The storage is for Fortran. In C/C++, the last dimension has to be cut in half due to different memory pattern. For Z-pencil input, the complex output is of size *nx\*ny\*(nz/2+1)* instead. Also note that the integer division is rounded down.
