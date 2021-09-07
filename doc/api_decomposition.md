@@ -29,7 +29,7 @@ It is recommended that an application define its major data structures using the
       allocate(uy(ystart(1):yend(1), ystart(2):yend(2), ystart(3):yend(3)))
 ```
 
-There are also a number of [utility routines](#util) to help allocate 3D arrays.
+There are also a number of [utility routines](#utils) to help allocate 3D arrays.
 
 For debugging or otherwise writing information to the standard output, the following is recommended:
 
@@ -141,7 +141,7 @@ If a decomposition object is no longer needed in an application, one can release
       call decomp_info_finalize(decomp)
 ```
 
-#### Utility Routines to Help Allocate 3D Arrays
+#### Utility Routines to Help Allocate 3D Arrays<a name="utils"></a>
 
 If a large number of distributed arrays are to be used in an application, using the global variables defined above for memory allocation can become a bit awkward. For this reason, a number of utility routines have been introduced in version 1.5 of the library to simplify such operation. In the simplest form, these utility routines look like:
 
