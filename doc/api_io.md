@@ -16,7 +16,7 @@ where `ipencil` describes how the data is distributed (valid values are: 1 for X
 ```
       call decomp_2d_write_one(ipencil,var,filename, opt_decomp)
 ```
-where the global size of the data array is described by the decomposition object `opt_decomp` (as discussed in the [Advanced 2D Decomposition API](api_decompisition.md)), allowing distributed array of arbitrary size to be written. The file written would contain the 3D array in its natural i,j,k-order so that it can be easily processed (for example by a serial post-processing code). A corresponding *read* routine is also available.
+where the global size of the data array is described by the decomposition object `opt_decomp` (as discussed in the [Advanced 2D Decomposition API](api_decomposition.md)), allowing distributed array of arbitrary size to be written. The file written would contain the 3D array in its natural i,j,k-order so that it can be easily processed (for example by a serial post-processing code). A corresponding *read* routine is also available.
 
 #### To write multiple three-dimensional variables into a file
 
@@ -123,3 +123,25 @@ The following table summarises the supported I/O types and data types of the sub
 	  <td align="center">&nbsp;</td>
 	</tr>
 </table>
+
+\# decomp: refers to a decomposition object that describes an arbitrary-size global dataset.
+
+#### Future Development
+
+As these I/O operations are built upon data structured well defined by the decomposition library, it is fairly easy to introduce additional functions, should any need arises.
+
+The I/O library is currently implemented using a straight-forward I/O model - all MPI processes collectively read/write individual files. Depending on hardware situations (in particular the file system), this model may fail to scale above several thousands of processes. A more scalable I/O model, known as *multiple writers* model, is to use a subset of processes serving as local master, each processing data on behalf on a group of processes. This feature will be introduced in a future version of the library when there are clear practical requirements.
+
+<p align="center">
+    <img src="images/io_model-1.png" alt="">
+	<img src="images/io_model-2.png" alt=""><br>
+	Sketches of two I/O models.
+</p>
+
+#### I/O Optimisation for LUSTRE File System
+
+<span style="color:red;">[This section covers a very specific optimisation that worked well on certain production systems 10+ years ago. The validity of this technique needs to be accessed carefully on modern systems.]</span>
+
+LUSTRE is a widely used distributed file system. On LUSTRE, files are 'striped' across multiple object storage targets (physical disks) that can be accessed in parallel to acheive high performance. Naturally, the best striping strategy is dependent on hardware configurations and software parameters (such as file sizes). [T3PIO](https://github.com/TACC/t3pio) is a library that allows applications to programmatically set the optimal LUSTRE parameters when writing files via MPI-IO or HDF5. It has potential to significantly improve I/O performance.
+
+From version 1.5, 2DECOMP&FFT can optionally use T3PIO to optimise its parallel IO routines. To use this feature, first make sure that you are using LUSTRE file system and T3PIO library is available on your system, then use the **-DT3PIO** flag to turn on T3PIO support while building 2DECOMP&FFT. In one set of benchmarks, when writing a 8GB file collectively from 1024 cores on a busy production Cray XE6 system, a speed-up of 3 times was achieved.
