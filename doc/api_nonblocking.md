@@ -58,7 +58,7 @@ It is up to the application developers to identify opportunities in their algori
 [1] K. Kandalla, H. Subramoni, K. Tomko, D. Pekurovsky, S. Sur and D.K. Panda, "High-performance and scalable non-blocking all-to-all with collective offload on InfiniBand clusters: a study with parallel 3D FFT", *Computer Science - Research and Development*, vol. 26(3-4):237-246, 2011.
 
 
-<hr size="1">
+---
 
 <a id="note1" href="#note1ref"><sup>1</sup></a>The blocking version also needs to define send/recv buffers. But because there is only one communication at any time, the buffers are temporarily allocated as required by the library, or for performance reason defined globally and shared by multiple communication calls.
 

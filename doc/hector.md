@@ -136,7 +136,7 @@ The library code had to be optimised first to minimise the memory footprint. The
 
 The table summarises all the test cases done using 16384 cores. For under-populated cases, 24576 cores (1024 nodes, the largest possible HECToR job) had to be reserved. The figures reported are number of seconds to perform a pair (forward+backward) of single-precision complex-to-complex FFTs. As shown, the largest problem size achieved is 12288\*8192\*8192. The scaling of the library is very good - each time the problem size is doubled, the time required is only slightly more than doubled. Also shown is that when running in under-populated mode, the code is consistently 20% faster.
 
-<hr size="1">
+---
 
 <a id="note1" href="#note1ref"><sup>1</sup></a>This research used resources of the National Center for Computational Sciences at Oak Ridge National Laboratory, which is supported by the Office of Science of the Department of Energy under Contract DE-AC05-00OR22725.
 
