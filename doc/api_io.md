@@ -140,7 +140,7 @@ The I/O library is currently implemented using a straight-forward I/O model - al
 
 #### I/O Optimisation for LUSTRE File System
 
-<span style="color:red;">[This section covers a very specific optimisation that worked well on certain production systems 10+ years ago. The validity of this technique needs to be accessed carefully on modern systems.]</span>
+<p style="color:red;">[This section covers a very specific optimisation that worked well on certain production systems 10+ years ago. The validity of this technique needs to be accessed carefully on modern systems.]</p>
 
 LUSTRE is a widely used distributed file system. On LUSTRE, files are 'striped' across multiple object storage targets (physical disks) that can be accessed in parallel to acheive high performance. Naturally, the best striping strategy is dependent on hardware configurations and software parameters (such as file sizes). [T3PIO](https://github.com/TACC/t3pio) is a library that allows applications to programmatically set the optimal LUSTRE parameters when writing files via MPI-IO or HDF5. It has potential to significantly improve I/O performance.
 
