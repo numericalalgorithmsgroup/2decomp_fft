@@ -75,10 +75,17 @@ More performance results of Incompact3D are reported by Laizet & Li[7]. And fina
 #### References
 
 [1] D. Hurst and J.C. Vassilicos, "Scalings and decay of fractal-generated turbulence", *Physics of Fluids*, vol. 19(3), 2007.
+
 [2] R.E. Seoud and J.C. Vassilicos, "Dissipation and decay of fractal-generated turbulence", *Physics of Fluids*, vol. 19(10), 2007.
+
 [3] S. Laizet and E. Lamballais, "High-order compact schemes for incompressible flows: A simple and efficient method with quasi-spectral accuracy", *Journal of Computational Physics*, vol. 228(16):5989-6015, 2009.
+
 [4] P.N. Swarztrauber, "The methods of cyclic reduction, fourier analysis and the FACR algorithm for the discrete solution of Poisson's equation on a rectangle", *SIAM Review*, vol. 19(3):490-501, 1977.
+
 [5] R.B. Wilhelmson and J.H. Erickson, "Direct solutions for Poisson's equation in three dimensions", *Journal of Computational Physics*, vol. 25(4):319-331, 1977.
+
 [6] D. A. Donzis, P. K. Yeung, and D. Pekurovsky, "Turbulence simulation on o(104) processors", In *TeraGrid'08*, 2008.
+
 [7] S. Laizet and N. Li, "Incompact3d: a powerful tool to tackle turbulence problems with up to o(105) computational cores", *International Journal for Numerical Methods in Fluids*, vol. 67(11):1735-1757, 2011.
+
 [8] S. Laizet and J.C. Vassilicos, "DNS of Fractal-Generated Turbulence", *Flow, Turbulence and Combustion*, vol. 87(4):673-705, 2011.
