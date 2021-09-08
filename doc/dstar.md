@@ -7,7 +7,7 @@ Parallel algorithms include MPI and mixed MPI/OpenMP. Parallel operations can be
 A typical scientific application is shown below:
 
 <p align="center">
-  <img src="images/vort-fractal.png"><br>
+  <img src="images/dstar-flame.png"><br>
   <span style="font-size:smaller;">Large eddy simulation of a turbulent diffusion flame interacting with evaporating water droplets.
   </span>
 </p>
