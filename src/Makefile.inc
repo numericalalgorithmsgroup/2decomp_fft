@@ -21,6 +21,7 @@ OPTIONS=
 #   fftw3_f03  - FFTW 3.3-beta1 or later (with Fortran 2003 interface)
 #   generic    - A general FFT algorithm (no 3rd-party library needed)
 #   mkl        - Intel Math Kernel Library
+#   ssl        - Fujistu Scientific Subroutine Library
 FFT=generic
 
 # Platform-dependent information - compiler, external library etc
@@ -94,6 +95,9 @@ LIB_FFTE=$(FFTE_PATH)/libffte.a
 # For cuFFT
 LIB_CUFFT=-L$(CUDA_PATH)/lib64 -lcudart -lcufft
 
+# For SSL
+LIB_SSL=-SSL2 --linkstl=libfjc++
+
 ifeq ($(FFT),generic)
      LIBFFT=
 else ifeq ($(FFT),acml)
@@ -110,4 +114,7 @@ else ifeq ($(FFT),mkl)
      LIBFFT=$(LIB_MKL)
 else ifeq ($(FFT),cufft)
      LIBFFT=$(LIB_CUFFT)
+else ifeq ($(FFT),ssl)
+     LD_FLAGS=-Kfast
+     LIBFFT=$(LIB_SSL)
 endif
